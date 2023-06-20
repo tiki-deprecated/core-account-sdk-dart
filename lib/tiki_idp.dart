@@ -13,19 +13,19 @@ import 'key/key_platform.dart';
 import 'key/key_service.dart';
 import 'registry/registry.dart';
 import 'registry/registry_service.dart';
-import 'rsa/rsa.dart' as RSA;
+import 'rsa/rsa.dart' as rsa;
 import 'rsa/rsa_private_key.dart';
 
 export 'auth/jwt.dart';
 export 'key/key_platform.dart';
 export 'registry/registry.dart';
 
-class TikiIDP {
+class TikiIdp {
   final KeyService _keyService;
   final AuthService _authService;
   late final RegistryService _registryService;
 
-  TikiIDP(
+  TikiIdp(
       String user, List<String> scope, String clientId, KeyPlatform platform,
       {String? clientSecret})
       : _keyService = KeyService(platform),
@@ -42,14 +42,14 @@ class TikiIDP {
   Future<Uint8List> sign(String key, Uint8List message) async {
     RsaPrivateKey? privateKey = await _keyService.get(key);
     if (privateKey == null) throw RangeError('Missing key: $key');
-    return RSA.sign(privateKey, message);
+    return rsa.sign(privateKey, message);
   }
 
   Future<bool> verify(
       String key, Uint8List message, Uint8List signature) async {
     RsaPrivateKey? privateKey = await _keyService.get(key);
     if (privateKey == null) throw RangeError('Missing key: $key');
-    return RSA.verify(privateKey.public, message, signature);
+    return rsa.verify(privateKey.public, message, signature);
   }
 
   Future<Registry> register(String key, String user, String address) =>
