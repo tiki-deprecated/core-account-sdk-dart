@@ -11,7 +11,7 @@ import 'package:pointycastle/export.dart';
 import 'rsa_private_key.dart';
 import 'rsa_public_key.dart';
 
-typedef RsaKeyPair = AsymmetricKeyPair<RsaPublicKey, RsaPrivateKey>;
+typedef KeyPair = AsymmetricKeyPair<RsaPublicKey, RsaPrivateKey>;
 
 Uint8List encrypt(RsaPublicKey key, Uint8List plaintext) {
   final encryptor = OAEPEncoding(RSAEngine())
@@ -44,8 +44,8 @@ bool verify(RsaPublicKey key, Uint8List message, Uint8List signature) {
 }
 
 FortunaRandom secureRandom() {
-  var secureRandom = FortunaRandom();
-  var random = Random.secure();
+  FortunaRandom secureRandom = FortunaRandom();
+  Random random = Random.secure();
   final seeds = <int>[];
   for (int i = 0; i < 32; i++) {
     seeds.add(random.nextInt(255));
