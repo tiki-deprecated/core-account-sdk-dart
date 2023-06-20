@@ -10,6 +10,7 @@ import 'package:pointycastle/api.dart';
 import 'package:uuid/uuid.dart';
 
 import '../auth/auth_service.dart';
+import '../key/key_model.dart';
 import '../key/key_service.dart';
 import '../rsa/rsa.dart' as RSA;
 import '../rsa/rsa_private_key.dart';
@@ -47,8 +48,9 @@ class RegistryService {
   }
 
   Future<String> _signature(String keyId, {String? message}) async {
-    RsaPrivateKey? key = await _keyService.get(keyId);
-    if (key == null) throw RangeError('Missing key: $keyId');
+    KeyModel? keyModel = await _keyService.get(keyId);
+    if (keyModel == null) throw RangeError('Missing key: $keyId');
+    RsaPrivateKey key = RsaPrivateKey.decode(keyModel.key);
     message ??= const Uuid().v4();
     Uint8List signature =
         RSA.sign(key, Uint8List.fromList(utf8.encode(message)));
@@ -59,7 +61,7 @@ class RegistryService {
     if (key == null) throw StateError('Missing app signature key');
     Uint8List hashedKey = Digest("SHA3-256").process(key.public.bytes);
     String id = base64.encode(hashedKey);
-    await _keyService.save(id, key);
+    await _keyService.save(id, KeyModel(key.encode()));
     return id;
   }
 }

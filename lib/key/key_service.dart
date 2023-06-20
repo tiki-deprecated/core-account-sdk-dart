@@ -3,7 +3,10 @@
  * MIT license. See LICENSE file in root directory.
  */
 
+import 'dart:convert';
+
 import '../rsa/rsa_private_key.dart';
+import 'key_model.dart';
 import 'key_platform.dart';
 
 class KeyService {
@@ -17,11 +20,11 @@ class KeyService {
     return RsaPrivateKey.decode(key);
   }
 
-  Future<RsaPrivateKey?> get(String id) async {
-    String? key = await _platform.read('$_keyPrefix.${id}');
-    return key != null ? RsaPrivateKey.decode(key) : null;
+  Future<KeyModel?> get(String id) async {
+    String? json = await _platform.read('$_keyPrefix.$id');
+    return json != null ? KeyModel.fromMap(jsonDecode(json)) : null;
   }
 
-  Future<void> save(String id, RsaPrivateKey key) =>
-      _platform.write('$_keyPrefix.${id}', key.encode());
+  Future<void> save(String id, KeyModel key) =>
+      _platform.write('$_keyPrefix.$id', jsonEncode(key.toMap()));
 }
