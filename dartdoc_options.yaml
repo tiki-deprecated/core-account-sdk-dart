@@ -1,0 +1,4 @@
+dartdoc:
+  include: [
+    tiki_idp
+  ]

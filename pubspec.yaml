@@ -1,0 +1,25 @@
+name: tiki_idp
+description: Identity provider library for TIKI
+version: 0.0.1
+homepage: https://mytiki.com
+documentation: https://mytiki.com/docs
+repository: https://github.com/tiki/tiki-idp
+issue_tracker: https://github.com/tiki/tiki-idp/issues
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  pointycastle: ^3.7.3
+  sqlite3: ^1.11.2
+  http: ^1.0.0
+  uuid: ^3.0.7
+
+dev_dependencies:
+  test: ^1.24.3
+  flutter_lints: ^2.0.1
+  build_web_compilers: ^4.0.3
+  nock: ^1.2.2
+  build_runner: ">=1.6.2 <3.0.0"
+
+
