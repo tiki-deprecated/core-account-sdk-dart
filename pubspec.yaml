@@ -1,6 +1,6 @@
 name: tiki_idp
 description: Identity provider library for TIKI
-version: 0.1.0
+version: 0.1.1
 homepage: https://mytiki.com
 documentation: https://mytiki.com/docs
 repository: https://github.com/tiki/tiki-idp

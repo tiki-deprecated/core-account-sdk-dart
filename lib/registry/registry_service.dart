@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 import '../auth/auth_service.dart';
 import '../key/key_model.dart';
 import '../key/key_service.dart';
-import '../rsa/rsa.dart' as RSA;
+import '../rsa/rsa.dart' as rsa;
 import '../rsa/rsa_private_key.dart';
 import 'registry.dart';
 import 'registry_model_req.dart';
@@ -53,7 +53,7 @@ class RegistryService {
     RsaPrivateKey key = RsaPrivateKey.decode(keyModel.key);
     message ??= const Uuid().v4();
     Uint8List signature =
-        RSA.sign(key, Uint8List.fromList(utf8.encode(message)));
+        rsa.sign(key, Uint8List.fromList(utf8.encode(message)));
     return "$message.${base64.encode(key.public.bytes)}.${base64.encode(signature)}";
   }
 

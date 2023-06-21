@@ -3,9 +3,9 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-import 'JWT.dart';
 import 'auth_model_rsp.dart';
 import 'auth_repository.dart';
+import 'jwt.dart';
 
 class AuthService {
   final String _clientId;
