@@ -7,7 +7,7 @@ library tiki_idp;
 
 import 'dart:typed_data';
 
-import 'auth/JWT.dart';
+import 'auth/jwt.dart';
 import 'auth/auth_service.dart';
 import 'key/key_model.dart';
 import 'key/key_platform.dart';
